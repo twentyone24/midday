@@ -24,6 +24,7 @@ export const updateTeamSchema = z.object({
   inbox_email: z.string().email().optional().nullable(),
   inbox_forwarding: z.boolean().optional().nullable(),
   logo_url: z.string().url().optional(),
+  base_currency: z.string().optional(),
   revalidatePath: z.string().optional(),
 });
 
