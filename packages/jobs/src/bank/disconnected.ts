@@ -1,11 +1,13 @@
 import ConnectionIssueEmail from "@midday/email/emails/connection-issue";
 import { renderAsync } from "@react-email/components";
 import { cronTrigger } from "@trigger.dev/sdk";
+import { nanoid } from "nanoid";
 import { client, resend, supabase } from "../client";
+import { Jobs } from "../constants";
 import { processBatch } from "../utils/process";
 
 client.defineJob({
-  id: "bank-connection-disconnected",
+  id: Jobs.BANK_CONNECTION_DISCONNECTED,
   name: "Bank - Connection Disconnected",
   version: "0.1.1",
   trigger: cronTrigger({
@@ -61,8 +63,8 @@ client.defineJob({
 
     const emails = await Promise.all(emailPromises);
 
-    await processBatch(emails, 50, async (batch, index) => {
-      await io.resend.batch.send(`send-email-${index}`, batch);
+    await processBatch(emails, 50, async (batch) => {
+      await io.resend.batch.send(`send-email-${nanoid()}`, batch);
     });
   },
 });
