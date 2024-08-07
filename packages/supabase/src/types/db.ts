@@ -14,6 +14,8 @@ export type Database = {
           account_id: string;
           balance: number | null;
           bank_connection_id: string | null;
+          base_balance: number | null;
+          base_currency: string | null;
           created_at: string;
           created_by: string;
           currency: string | null;
@@ -28,6 +30,8 @@ export type Database = {
           account_id: string;
           balance?: number | null;
           bank_connection_id?: string | null;
+          base_balance?: number | null;
+          base_currency?: string | null;
           created_at?: string;
           created_by: string;
           currency?: string | null;
@@ -42,6 +46,8 @@ export type Database = {
           account_id?: string;
           balance?: number | null;
           bank_connection_id?: string | null;
+          base_balance?: number | null;
+          base_currency?: string | null;
           created_at?: string;
           created_by?: string;
           currency?: string | null;
@@ -662,6 +668,8 @@ export type Database = {
           assigned_id: string | null;
           balance: number | null;
           bank_account_id: string | null;
+          base_amount: number | null;
+          base_currency: string | null;
           category: Database["public"]["Enums"]["transactionCategories"] | null;
           category_slug: string | null;
           created_at: string;
@@ -686,6 +694,8 @@ export type Database = {
           assigned_id?: string | null;
           balance?: number | null;
           bank_account_id?: string | null;
+          base_amount?: number | null;
+          base_currency?: string | null;
           category?:
             | Database["public"]["Enums"]["transactionCategories"]
             | null;
@@ -709,6 +719,8 @@ export type Database = {
           assigned_id?: string | null;
           balance?: number | null;
           bank_account_id?: string | null;
+          base_amount?: number | null;
+          base_currency?: string | null;
           category?:
             | Database["public"]["Enums"]["transactionCategories"]
             | null;
@@ -968,6 +980,34 @@ export type Database = {
             };
             Returns: unknown;
           };
+      get_all_transactions_by_account: {
+        Args: {
+          account_id: string;
+        };
+        Returns: {
+          amount: number;
+          assigned_id: string | null;
+          balance: number | null;
+          bank_account_id: string | null;
+          base_amount: number | null;
+          base_currency: string | null;
+          category: Database["public"]["Enums"]["transactionCategories"] | null;
+          category_slug: string | null;
+          created_at: string;
+          currency: string;
+          date: string;
+          description: string | null;
+          id: string;
+          internal_id: string;
+          manual: boolean | null;
+          method: Database["public"]["Enums"]["transactionMethods"];
+          name: string;
+          note: string | null;
+          status: Database["public"]["Enums"]["transactionStatus"] | null;
+          team_id: string;
+          updated_at: string | null;
+        }[];
+      };
       get_bank_account_currencies: {
         Args: {
           team_id: string;

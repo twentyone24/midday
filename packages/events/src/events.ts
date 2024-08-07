@@ -175,8 +175,8 @@ export const LogEvents = {
     name: "Category Delete",
     channel: "category",
   },
-  UpdateBaseCurrency: {
-    name: "Update Base Currency",
+  UpdateCurrency: {
+    name: "Update Currency",
     channel: "transaction",
   },
 };

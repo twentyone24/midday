@@ -3,10 +3,7 @@ import { Charts } from "@/components/charts/charts";
 import { OverviewModal } from "@/components/modals/overview-modal";
 import { Widgets } from "@/components/widgets";
 import { Cookies } from "@/utils/constants";
-import {
-  getBankAccountsCurrencies,
-  getTeamBankAccounts,
-} from "@midday/supabase/cached-queries";
+import { getTeamBankAccounts } from "@midday/supabase/cached-queries";
 import { cn } from "@midday/ui/cn";
 import { startOfMonth, startOfYear, subMonths } from "date-fns";
 import type { Metadata } from "next";
@@ -26,13 +23,11 @@ const defaultValue = {
   period: "monthly",
 };
 
+const BASE_CURRENCY = "SEK";
+
 export default async function Overview({ searchParams }) {
   const accounts = await getTeamBankAccounts();
   const chartType = cookies().get(Cookies.ChartType)?.value ?? "profit";
-
-  const currency = cookies().has(Cookies.ChartCurrency)
-    ? cookies().get(Cookies.ChartCurrency)?.value
-    : (await getBankAccountsCurrencies())?.data?.at(0)?.currency || "USD";
 
   const initialPeriod = cookies().has(Cookies.SpendingPeriod)
     ? JSON.parse(cookies().get(Cookies.SpendingPeriod)?.value)
@@ -59,12 +54,12 @@ export default async function Overview({ searchParams }) {
     <>
       <div className={cn(empty && !isOpen && "opacity-20 pointer-events-none")}>
         <div className="h-[520px]">
-          <ChartSelectors defaultValue={defaultValue} currency={currency} />
+          <ChartSelectors defaultValue={defaultValue} />
           <Charts
             value={value}
             defaultValue={defaultValue}
             disabled={empty}
-            currency={currency}
+            currency={BASE_CURRENCY}
             type={chartType}
           />
         </div>
